@@ -10,10 +10,8 @@ export const createTransaction = async (req: AuthRequest, res: Response): Promis
   try {
     const transactionData = req.body;
 
-    // Generate invoice number if not provided
-    if (!transactionData.invoiceNumber) {
-      transactionData.invoiceNumber = generateInvoiceNumber();
-    }
+    // Always auto-generate invoice number to avoid duplicates
+    transactionData.invoiceNumber = generateInvoiceNumber();
 
     transactionData.userId = req.userId;
 
